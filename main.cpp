@@ -25,7 +25,6 @@ public:
   friend Multime operator + (Multime m1, Multime m2);
   friend Multime operator * (Multime m1, Multime m2);
   friend Multime operator - (Multime m1, Multime m2);
-  friend ostream & operator << (ostream & os, const Multime & m);
 };
 
 Multime::Multime (){
@@ -45,7 +44,8 @@ Multime::Multime(int x[], int m){
 	  v[k++] = x[i];
 	    }
     }
-
+    n=k;
+}
 
 Multime::Multime(const Multime & m){
   n = m.n;
@@ -69,45 +69,56 @@ void Multime::convert(int x[100], int m){
       if (ok){
 	  v[k++] = x[i];
 	    }
+  }
 }
 
 Multime operator + (Multime m1, Multime m2){
-  int n, m, v[200], *p1, *p2;
-  n = m1.get_n () + m2.get_n ();
-  m = m1.get_n ();
-  p1 = m1.get_v ();
-  p2 = m2.get_v ();
-  for (int i = 0; i < n; i++){
-      if (i < m)
-	v[i] = p1[i];
-      else
-	v[i] = p2[i - m];
+    int n, m, v[200], *p1, *p2, k, ok, i, j;
+    n = m1.get_n();
+    m = m2.get_n();
+    p1 = m1.get_v();
+    p2 = m2.get_v();
+    for (i = 0; i < n; i++){
+	    v[i] = p1[i];
     }
-  Multime M (v, n);
-  M.convert ();
-  return M;
+    k=n;
+    for (i = 0; i < m; i++){
+        ok=1;
+        for (j = 0; j < n; j++){
+            if(p1[j]==p2[i]){
+                ok=0;
+            }
+        }
+        if(ok){
+            v[k++]=p2[i];
+        }
+    }
+    Multime M(v,k);
+    return M;
 
 }
 
 Multime operator * (Multime m1, Multime m2){
-  int v[200], *p1, *p2, k, ok;
-  p1 = m1.get_v ();
-  p2 = m2.get_v ();
-  k = 0;
-  for (int i = 0; i < m1.get_n (); i++){
-      ok = 0;
-      for (int j = 0; j < m2.get_n (); j++){
-	  if (p1[i] == p2[j]){
-	      ok = 1;
+    int v[200], *p1, *p2, k, ok, n, m;
+    p1 = m1.get_v ();
+    p2 = m2.get_v ();
+    n = m1.get_n ();
+    m = m2.get_n ();
+    k = 0;
+    for (int i = 0; i < m1.get_n(); i++){
+        ok = 0;
+        for (int j = 0; j < m2.get_n (); j++){
+	        if (p1[i] == p2[j]){
+	            ok = 1;
+	        
+	        }
 	    }
-	}
-      if (ok){
-	  v[k++] = p1[i];
-	}
+        if (ok){
+	    v[k++] = p1[i];
+	    }
     }
-  Multime M (v, k);
-  M.convert ();
-  return M;
+    Multime M (v, k);
+    return M;
 
 }
 
@@ -128,7 +139,6 @@ Multime operator - (Multime m1, Multime m2){
 	}
     }
   Multime M (v, k);
-  M.convert ();
   return M;
 
 }
@@ -148,6 +158,7 @@ int main (){
   Multime Set2 (v2, n2);
   Set.afisare ();
   Set2.afisare ();
+  cout<<endl;
   Multime X;
   X = Set + Set2;
   X.afisare ();
