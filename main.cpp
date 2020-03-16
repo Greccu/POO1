@@ -1,4 +1,3 @@
-  
 #include <iostream>
 
 using namespace std;
@@ -170,6 +169,20 @@ Multime operator - (Multime m1, Multime m2){
 }
 
 
+void citire_array(Multime v[100],int n){
+    cout<<"Elementele vectorului de obiecte\n";
+    for(int i = 0; i < n; i++){
+        cout<<"Elementul nr. "<<i+1<<"\n";
+        cin>>v[i];
+    }
+    cout<<"\n";
+    for(int i = 0; i < n; i++){
+        cout<<v[i]<<"\n";
+
+    }
+}
+    
+
 int main (){
     int v[] = { 4, 3, 7, 5, 2, 3, 4, 5, 6, 7, 8 }, n = 11,	//4,3,7,5,2,6,8   - > 4,3,7,5,2,6,11,23,1
     v2[] ={3, 11, 23, 4, 5, 7, 1}, n2 = 7;	//3,11,23,4,5,7,1 - > 4,3,7,5
@@ -183,10 +196,18 @@ int main (){
     cout<<X<<"\n";
     X = Set - Set2;
     cout<<X<<"\n";
-    
     Multime Z;
     cin>>Z;
-    cout<<Z;
+    cout<<Z<<"\n";
+    cout<<"Numarul de elemente: ";
+    cin>>n;
+    cout<<endl;
+    Multime S[100];
+    citire_array(S,n);
+    
+    for(int i=0;i<n;i++){
+        cout<<S[0]<<"\n";
+    }
+    
   return 0;
 }
-
