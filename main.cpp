@@ -1,3 +1,4 @@
+  
 #include <iostream>
 
 using namespace std;
@@ -21,11 +22,36 @@ public:
   Multime (const Multime & m);	//constructor de copiere
   ~Multime ();
   void convert (int x[100], int m);
-  void afisare ();
   friend Multime operator + (Multime m1, Multime m2);
   friend Multime operator * (Multime m1, Multime m2);
   friend Multime operator - (Multime m1, Multime m2);
+  friend ostream& operator<<(ostream&, const Multime&);
+  friend istream& operator>>(istream&, Multime&);
 };
+
+
+ostream& operator<<(ostream& out, const Multime& m){
+    out << m.v[0];
+    for(int i = 1; i < m.n; i++){
+        out << ", " << m.v[i];
+    }
+    return out;
+}
+
+istream& operator>>(istream &in, Multime& m){
+    int n;
+    cout<<"n = ";
+    in>>n;
+    m.n=n;
+    for (int i = 0; i < n; i++){
+        in>>m.v[i];
+    }
+    return in;
+    
+}
+
+
+
 
 Multime::Multime (){
   n = 0;
@@ -143,29 +169,24 @@ Multime operator - (Multime m1, Multime m2){
 
 }
 
-void Multime::afisare (){
-  for (int i = 0; i < n; i++){
-      cout << v[i] << " ";
-    }
-  cout << "\n";
-}
-
 
 int main (){
-  int v[] = { 4, 3, 7, 5, 2, 3, 4, 5, 6, 7, 8 }, n = 11,	//4,3,7,5,2,6,8   - > 4,3,7,5,2,6,11,23,1
+    int v[] = { 4, 3, 7, 5, 2, 3, 4, 5, 6, 7, 8 }, n = 11,	//4,3,7,5,2,6,8   - > 4,3,7,5,2,6,11,23,1
     v2[] ={3, 11, 23, 4, 5, 7, 1}, n2 = 7;	//3,11,23,4,5,7,1 - > 4,3,7,5
-  Multime Set (v, n);		//                 - > 2,6,8
-  Multime Set2 (v2, n2);
-  Set.afisare ();
-  Set2.afisare ();
-  cout<<endl;
-  Multime X;
-  X = Set + Set2;
-  X.afisare ();
-  X = Set * Set2;
-  X.afisare ();
-  X = Set - Set2;
-  X.afisare ();
-
+    Multime Set (v, n);		//                 - > 2,6,8
+    Multime Set2 (v2, n2);
+    cout<<Set<<"\n"<<Set2;
+    Multime X;
+    X = Set + Set2;
+    cout<<X<<"\n";
+    X = Set * Set2;
+    cout<<X<<"\n";
+    X = Set - Set2;
+    cout<<X<<"\n";
+    
+    Multime Z;
+    cin>>Z;
+    cout<<Z;
   return 0;
 }
+
