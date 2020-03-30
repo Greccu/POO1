@@ -17,7 +17,7 @@ public:
   }
   void set_n (int m){ m = n; }
   Multime ();
-  Multime (int x[], int m);	//constructor de initializare
+  Multime (int x[], int m);	//constructori de initializare
   Multime (const Multime & m);	//constructor de copiere
   ~Multime ();
   void convert (int x[100], int m);
@@ -95,6 +95,7 @@ void Multime::convert(int x[100], int m){
 	  v[k++] = x[i];
 	    }
   }
+  n=k;
 }
 
 Multime operator + (Multime m1, Multime m2){
@@ -169,7 +170,8 @@ Multime operator - (Multime m1, Multime m2){
 }
 
 
-void citire_array(Multime v[100],int n){
+void citire_array(Multime v[100]){
+    cin>>n;
     cout<<"Elementele vectorului de obiecte\n";
     for(int i = 0; i < n; i++){
         cout<<"Elementul nr. "<<i+1<<"\n";
@@ -184,12 +186,14 @@ void citire_array(Multime v[100],int n){
     
 
 int main (){
-    int v[] = { 4, 3, 7, 5, 2, 3, 4, 5, 6, 7, 8 }, n = 11,	//4,3,7,5,2,6,8   - > 4,3,7,5,2,6,11,23,1
-    v2[] ={3, 11, 23, 4, 5, 7, 1}, n2 = 7;	//3,11,23,4,5,7,1 - > 4,3,7,5
+    int v[] = { 4, 3, 7, 5, 2, 3, 4, 5, 6, 7, 8, 11, 3, 5, 7, 1 }, n = 16,	//4,3,7,5,2,6,8   - > 4,3,7,5,2,6,11,23,1
+    v2[] ={3, 11, 23, 4, 5, 7}, n2 = 6;	//3,11,23,4,5,7,1 - > 4,3,7,5,11
     Multime Set (v, n);		//                 - > 2,6,8
     Multime Set2 (v2, n2);
     cout<<Set<<"\n"<<Set2;
     Multime X;
+    X=convert(v,n);
+    cout<<X;
     X = Set + Set2;
     cout<<X<<"\n";
     X = Set * Set2;
@@ -203,6 +207,7 @@ int main (){
     cin>>n;
     cout<<endl;
     Multime S[100];
+    cub
     citire_array(S,n);
     
     for(int i=0;i<n;i++){
